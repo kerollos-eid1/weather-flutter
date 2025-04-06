@@ -10,6 +10,8 @@ import 'package:weather_app/pages/search_page.dart';
 class HomePage extends StatelessWidget {
   WeatherModel? weatherData;
 
+  HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +26,7 @@ class HomePage extends StatelessWidget {
                 : BlocProvider.of<WeatherCubit>(context)
                     .weatherModel!
                     .getShemeColor(),
-        title: Text(
+        title: const Text(
           'Weather app',
           style: TextStyle(
             color: Colors.white,
@@ -32,7 +34,7 @@ class HomePage extends StatelessWidget {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.search,
               color: Colors.white,
             ),
@@ -52,16 +54,16 @@ class HomePage extends StatelessWidget {
       body: BlocBuilder<WeatherCubit, WeatherState>(
         builder: (context, state) {
           if (state is Weatherloading) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (state is WeatherSuccessInformation) {
             weatherData = BlocProvider.of<WeatherCubit>(context).weatherModel;
             return successBody(weatherData: weatherData);
           } else if (state is WeatherFailureInformation) {
-            return Center(
+            return const Center(
               child: Text(' somthing Worng  Please try again'),
             );
           } else {
-            return DefualtHomePage();
+            return const DefualtHomePage();
           }
         },
       ),
@@ -76,7 +78,7 @@ class DefualtHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -126,14 +128,14 @@ class successBody extends StatelessWidget {
           const Spacer(flex: 3),
           Text(
             BlocProvider.of<WeatherCubit>(context).cityName ?? '',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 35,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
-            'updated at : ${weatherData!.date.hour.toString()} : ${weatherData!.date.minute.toString()}',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            'updated a : ${weatherData!.date.hour.toString()} : ${weatherData!.date.minute.toString()}',
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const Spacer(flex: 2),
           Row(
@@ -142,28 +144,31 @@ class successBody extends StatelessWidget {
               Image.asset(weatherData!.getimages()),
               Text(
                 weatherData?.temp.toInt().toString() ?? '',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
               ),
               Column(
                 children: [
                   Text(
                     'maxtemp : ${weatherData!.maxtemp.toInt()}',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     'mintemp : ${weatherData!.mintemp.toInt()}',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ],
           ),
-          Spacer(
+          const Spacer(
             flex: 2,
           ),
           Text(
             weatherData?.text ?? '',
-            style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
           ),
           const Spacer(flex: 6),
         ],
